@@ -1,9 +1,10 @@
 import Link from 'next/link';
-import MainNav from '../main-nav';
+import MainNav from './main-nav';
 import { siteConfig } from '@/config/site';
-import { buttonVariants } from './button';
+import { buttonVariants } from './ui/button';
 import { cn } from '@/lib/utils';
-import { Icons } from '../icons';
+import { Icons } from './icons';
+import { MobileNav } from './mobile-nav';
 
 export function SiteHeader() {
   return (
@@ -45,7 +46,7 @@ export function SiteHeader() {
               </div>
             </Link>
             {/* <ModeToggle />  */}
-            {/* <MobileNav />  */}
+            <MobileNav />
           </nav>
         </div>
       </div>
