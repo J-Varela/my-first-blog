@@ -1,10 +1,11 @@
-import Link from 'next/link';
-import MainNav from './main-nav';
 import { siteConfig } from '@/config/site';
-import { buttonVariants } from './ui/button';
 import { cn } from '@/lib/utils';
+import Link from 'next/link';
+import { buttonVariants } from './ui/button';
 import { Icons } from './icons';
+import MainNav from './main-nav';
 import { MobileNav } from './mobile-nav';
+import { ModeToggle } from './mode-toggle';
 
 export function SiteHeader() {
   return (
@@ -13,7 +14,6 @@ export function SiteHeader() {
         <MainNav />
         <div className="flex flex-1 items-center justify-end space-x-2">
           <nav className="flex items-center">
-            {/* github link*/}
             <Link
               href={siteConfig.links.github}
               target="_blank"
@@ -21,15 +21,14 @@ export function SiteHeader() {
             >
               <div
                 className={cn(
-                  buttonVariants({ variant: 'ghost' }), // Remove the extra argument
+                  buttonVariants({ variant: 'ghost' }),
                   'w-10 px-0 hidden sm:inline-flex'
                 )}
               >
-                <Icons.gitHub className="h-4 w-4 " />
-                <span className="sr-only">Gitub</span>
+                <Icons.gitHub className="h-4 w-4" />
+                <span className="sr-only">GitHub</span>
               </div>
             </Link>
-            {/*twitter link*/}
             <Link
               href={siteConfig.links.twitter}
               target="_blank"
@@ -45,7 +44,7 @@ export function SiteHeader() {
                 <span className="sr-only">Twitter</span>
               </div>
             </Link>
-            {/* <ModeToggle />  */}
+            <ModeToggle />
             <MobileNav />
           </nav>
         </div>
