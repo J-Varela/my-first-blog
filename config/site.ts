@@ -2,7 +2,7 @@ export const siteConfig = {
   name: 'DailyBlog',
   url: 'https://example.com',
   description: 'Nextjs 14 using velite, tailwind and shadcn',
-  author: 'JollyCoding',
+  author: 'Jonathan Varela',
   links: {
     twitter: 'https://twitter.com/jollycoding',
     github: 'https://github.com/jonathan',
