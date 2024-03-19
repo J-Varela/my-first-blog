@@ -4,9 +4,9 @@ export const siteConfig = {
   description: 'Nextjs 14 using velite, tailwind and shadcn',
   author: 'Jonathan Varela',
   links: {
-    twitter: 'https://twitter.com/jollycoding',
-    github: 'https://github.com/jonathan',
-    personalSite: 'https://jonathan.com',
+    twitter: 'https://twitter.com/',
+    github: 'https://github.com/J-Varela',
+    personalSite: 'https://',
   },
 };
 
