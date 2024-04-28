@@ -1,0 +1,141 @@
+---
+title: Azure Video Indexer service
+description: Learn how to use the Azure Video Indexer service to extract insights from videos
+date: 2024-04-11
+published: true
+---
+
+# Azure Video Indexer service
+
+The **Azure Video Indexer service** is designed to help you extract information from videos. It provides functionality that you can use for:
+
+- **_Facial recognition_**: detecting the presence of individuals in the image. This requires _Limited Access_ approval.
+
+- **_Optical character recognition_**: reading text in the video.
+
+- **_Speech transcription_**: creating a text transcript of spoken dialog in the video.
+
+- **_Topics_**: identification of key topics discussed in the video.
+
+- **_Sentiment_**: analysis of how positive or negative segments within the video are.
+
+- **_Labels_**: label tags that identify key objects or themes throughout the video.
+
+- **_Content moderation_**: detection of adult or violent themes in the video.
+
+- **_Scene segmentation_**: a breakdown of the video into its constituent scenes.
+
+The Video Analyzer service provides a portal website that you can use to upload, view, and analyze videos interactively.
+
+![Github Logo](https://learn.microsoft.com/en-us/training/wwl-data-ai/analyze-video/media/video-indexer-portal.png)
+
+## Unit 3
+
+# Extract custom insights
+
+Azure Video Indexer includes predefined models that can recognize well-known celebrities, do OCR, and transcribe spoken phrases into text. You can extend the recognition capabilites of Video Analyzer by creating custom models for:
+
+- **_People_**. Add images of the faces of people you want to recognize in videos, and train a model. Video indexer will then recognize these people in all of your videos.
+
+- **_Language_**. If your organization uses specific terminology that may not be in common usage, you can train a custom model to detect and transcribe it.
+
+- **_Brands_**. You can train a model to recognize specific names as brands, for example to identify products, projects, or companies that are relevant to your business.
+
+## Unit 4
+
+# Use Video Analyzer widgets and APIs
+
+While you can perform all video analysis tasks in the Azure Video Indexer portal, you may want to incorporate the service into custom applications. There are two ways you can accomplish this.
+
+# Azure Video Indexer Widgets
+
+The widgets used in the Azure Video Indexer portal to play, analyze, and edit videos can be embedded in your own custom HTML interfaces. You can use this technique to share insights from specific videos with others without giving them full access to your account in the Azure Video Indexer Portal.
+
+![Github Logo](https://learn.microsoft.com/en-us/training/wwl-data-ai/analyze-video/media/widgets.png)
+
+# Azure Video Indexer API
+
+Azure Video Indexer provides a REST API that you can use to obtain information about your account, including an access token.
+
+```
+https://api.videoindexer.ai/Auth/<location>/Accounts/<accountId>/AccessToken
+```
+
+You can then use your token to consume the REST API and automate video indexing tasks, creating projects, retrieving insights, and creating or deleting custom models.
+
+For example, a GET call to
+
+```
+https://api.videoindexer.ai/<location>/Accounts/<accountId>/Customization/CustomLogos/Logos/<logoId>?<accessToken>
+```
+
+REST endpoint returns the specified logo. In another example, you can send a GET request to
+
+```
+https://api.videoindexer.ai/<location>/Accounts/<accountId>/Videos?<accessToken>
+```
+
+which returns details of videos in your account, similar to the following JSON example:
+
+```js
+{
+    "accountId": "SampleAccountId",
+    "id": "30e66ec1b1",
+    "partition": null,
+    "externalId": null,
+    "metadata": null,
+    "name": "test3",
+    "description": null,
+    "created": "2018-04-25T16=50=00.967+00=00",
+    "lastModified": "2018-04-25T16=58=13.409+00=00",
+    "lastIndexed": "2018-04-25T16=50=12.991+00=00",
+    "privacyMode": "Private",
+    "userName": "SampleUserName",
+    "isOwned": true,
+    "isBase": true,
+    "state": "Processing",
+    "processingProgress": "",
+    "durationInSeconds": 13,
+    "thumbnailVideoId": "30e66ec1b1",
+    "thumbnailId": "55848b7b-8be7-4285-893e-cdc366e09133",
+    "social": {
+        "likedByUser": false,
+        "likes": 0,
+        "views": 0
+    },
+    "searchMatches": [],
+    "indexingPreset": "Default",
+    "streamingPreset": "Default",
+    "sourceLanguage": "en-US"
+}
+```
+
+# Deploy with ARM template
+
+Azure Resource Manager (ARM) templates are available to create the Azure AI Video Indexer resources in your subscription, based on the parameters specified in the template file.
+
+# Knowledge Check
+
+1. You want Azure Video Indexer to analyze a video. What must you do first?
+
+- [ ] Use the Azure AI Vision service to extract key frames from the video
+
+- [x] Upload the video to Azure Video Indexer and index it.
+
+- [ ] Store the video file in an Azure blob store container.
+
+2. You want Azure Video Indexer to recognize brands in videos recorded from conference call. What should you do?
+
+- [x] Edit the Brands model to show brands suggested by Bing, and add any new brands you want to detect.
+
+- [ ] Edit the conference call videos to include a caption of each brand seen on their first appearance.
+
+- [ ] Embed the Azure Video Indexer widgets in a custom web site that has all the brand images stored for
+
+# Summary
+
+Now that youve completed this module, you can:
+
+- Describe Azure Video Indexer capabilites.
+- Extract custom insights
+- Use Azure Video Indexer widgets and APIs

@@ -1,0 +1,268 @@
+---
+title: Custom named entity recognition
+description: custom named entity recognition
+date: 2024-04-20
+published: true
+---
+
+# Custom NER
+
+Custom **NER** is an **_Azure API service_** that looks at documents, identifies, and extracts user defined entities. These entities could be anything from names and addresses from bank statements to knowledge mining to improve search results.
+
+Custome NER is part of **_Azure AI Language AI Services_**.
+
+# Custom vs Built-in NER
+
+Azure AI Language provides certain built-in entity recognition, to recognize things such as a person, location, organization, or URL. Built-in NER allows you to set up the service with minimal configuration, and extract entities. To call a built-in NER, create your service and call the endpoint for that NER service like this.
+
+```
+<YOUR-ENDPOINT>/language/analyze-text/jobs?api-version=<API-VERSION>
+```
+
+The body of that call will contain the document(s) the entities are extracted from, and the headers contain your service key.
+
+The response from the call above contains an array of entities recognized, such as:
+
+```json
+<...>
+"entities":[
+    {
+        "text":"Seattle",
+        "category":"Location",
+        "subcategory":"GPE",
+        "offset":45,
+        "length":7,
+        "confidenceScore":0.99
+    },
+    {
+        "text":"next week",
+        "category":"DateTime",
+        "subcategory":"DateRange",
+        "offset":104,
+        "length":9,
+        "confidenceScore":0.8
+    }
+]
+<...>
+```
+
+Examples of when to use the built-in NER include finding locations, names, or URLs in long text documents.
+
+**_Custom NER_**, which is the focus of the rest of this module, is available when the entities you want to extract aren't part of the built-in service or you only want to extract specific entities. You can make your custom NER model as simple or as complex as is required for your app.
+
+Examples of when you'd want custom NER include specific legal or bank data, knowledge mining to enhance catalog search, or looking for sepecific text for audit policies. Each one of these projects requires a specific set of entities and data it needs to extract.
+
+![Github Logo](https://learn.microsoft.com/en-us/training/wwl-data-ai/custom-name-entity-recognition/media/extraction-development-lifecycle.png)
+
+Creating an **_Entity Extraction_** Model typically follows a similar path to most Azure AI Language service features:
+
+1. **_Define Entities_** : Understanding the data and entities you want to idenitify, and try to make them as clear as possible. For example, defining exactly which parts of a bank statement you want to extract.
+
+2. **_Tag Data_** : Label, or tag, your exisiting data, specifying what text in your dataset corresponds to which entity. This step is important to do accurately and completely, as any wrong or missed labels will reduce the effectiveness of the trained model. A good variation of possible input documents is useful. For example, label bank name, customer name, customer address, specific loan or account terms, loan or account amount, and account number.
+
+3. **_Train model_** : Train your model once your entities are **labeled**. Training teaches your model how to recognize the entities you label.
+
+4. **_View Model_** : After your model is trained, view the results of the model. This page includes a score of 0 to 1 that is based on the precision and recall of the data tested. You can see which entities worked well (such as customer name) and which entities need improvement (such as account number).
+
+5. **_Improve Model_** : Improve your model by seeing which entities failed to be identified, and which entities were incorrectly extracted. Find out what data needs to be added to your model's training to improve performance. This page shows you how entities failed, and which entities (such as account number) need to be differentiated from other similar entities (such as loan amount).
+
+6. **_Deploy Model_** : Once your model performs as desired, deploy your model when it's deployed to extract bank statement entities.
+
+7. **_Extract Entities_** : Use your model for extracting entities. The lab covers how to use the API, and you can view the API reference for more details.
+
+# Considerations for data selection and refining entities
+
+For the best performance, you'll need to use both high quality data to train the model and clearly defined entity types.
+
+High quality data will let you spend less time refining and yield better results from your model.
+
+- **Diversity** - use aas diverse of a dataset as possible without losing the real-life distribution expected in the real data. You'll want to use sample data from as amany sources as possible, each with their own formats and number of entities. It's best to have your dataset represent as many different sources as possible.
+
+- **Distribution** - Use the appropriate distribution of document types. A more diverse dataset to train your model will help your model avoid learning incorrect relationships in the data.
+
+- **Accuracy** - use data that is as close to real world data as possible. Fake data workds to start the training process, but it likely will differ from real data in ways that can cause your model to not extract correctly.
+
+Entities need to also be carefull considered, and defined as distinctly as possible. Avoid ambiguous entities (such as two names next to each other on a bank statement), as it will make the model struggle to differentiate. If having some ambiguous entities is required, make sure to have more examples for your model to learn from so it can understand the difference.
+
+Keeping your entities distinct will also go a long way in helping your model's performance. For example, trying to extract something like "Contact info" that could be a phone number, social media handle, or email address would require several examples to correctly teach your model. Instead, try to break them down into more specific entities such as "Phone", "Email", and "Social Media" and let the model label whichever type of contact information it finds.
+
+# How to extract entities
+
+To submit an extraction task, the API requires the JSON body to specify which task to execute. For custom NER, the task for the JSON payload is CustomEntityRecognition.
+
+Your payload will look similar to the follwoing JSON:
+
+```json
+{
+  "displayName": "string",
+  "analysisInput": {
+    "documents": [
+      {
+        "id": "doc1",
+        "text": "string"
+      },
+      {
+        "id": "doc2",
+        "text": "string"
+      }
+    ]
+  },
+  "tasks": [
+    {
+      "kind": "CustomEntityRecognition",
+      "taskName": "MyRecognitionTaskName",
+      "parameters": {
+        "projectName": "MyProject",
+        "deploymentName": "MyDeployment"
+      }
+    }
+  ]
+}
+```
+
+# Project Limits
+
+The Azure AI Language service enforces the following restrictions:
+
+- **Training** - at least 10 files, and not more than 100,000
+
+- **Deployments** - 10 deployment names per project
+
+- **APIs**
+
+  - **Authoring** - this API creates a project, trains, and deploys your model. Limited to 10 POST and 100 GET per minute
+
+  - **Analyze** - this API does the work of acutally extracting the entities; it requests a task and retrieves the results. Limited to 20 **GET** or **POST**
+
+- **Projects** - only 1 storage account per project, 500 projects per resource, and 50 trained models per project
+
+- **Entities** - each entity can be up to 500 characters. You can have up to 200 entity types.
+
+## unit 3
+
+# Label your data
+
+Labeling, or tagging, your data correctly is an important part of the process to create a custom entity extraction model. Labels identify examples of specific entities in text used to train the model. Three things to focus on are:
+
+- **Consistency** - Label your data the same way across all files for training. Consistency allows your model to learn without any conflicting inputs.
+
+- **Precision** - Label your entities consistently, without unnecessary extra words. Precision ensures only the correct data is included in your extracted entity.
+
+- **Completeness** - Label your data completely, and don't miss any entities. Completeness helps your model always recognize the entities present.
+
+![Github Logo](https://learn.microsoft.com/en-us/training/wwl-data-ai/custom-name-entity-recognition/media/tag-entity-screenshot.png)
+
+# How to label your data
+
+**Language Studio** is the most straight forward method for labeling your data. Language Studio allows you to see the file, select the beginning and end of your entity, and specify which entity it is.
+
+Each label that you identify gets saved into a file that lives in your storage account with your dataset, in an auto-generated JSON file. This file then gets used by the model to learn how to extract custom entities.
+It's possible to provide this file when creating your project (if you're importing the same labels from a different project, for example) however it must be in the Accepted custom NER data formats. For example:
+
+```json
+{
+  "projectFileVersion": "{DATE}",
+  "stringIndexType": "Utf16CodeUnit",
+  "metadata": {
+    "projectKind": "CustomEntityRecognition",
+    "storageInputContainerName": "{CONTAINER-NAME}",
+    "projectName": "{PROJECT-NAME}",
+    "multilingual": false,
+    "description": "Project-description",
+    "language": "en-us",
+    "settings": {}
+  },
+  "assets": {
+    "projectKind": "CustomEntityRecognition",
+    "entities": [
+      {
+        "category": "Entity1"
+      },
+      {
+        "category": "Entity2"
+      }
+    ],
+    "documents": [
+      {
+        "location": "{DOCUMENT-NAME}",
+        "language": "{LANGUAGE-CODE}",
+        "dataset": "{DATASET}",
+        "entities": [
+          {
+            "regionOffset": 0,
+            "regionLength": 500,
+            "labels": [
+              {
+                "category": "Entity1",
+                "offset": 25,
+                "length": 10
+              },
+              {
+                "category": "Entity2",
+                "offset": 120,
+                "length": 8
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "location": "{DOCUMENT-NAME}",
+        "language": "{LANGUAGE-CODE}",
+        "dataset": "{DATASET}",
+        "entities": [
+          {
+            "regionOffset": 0,
+            "regionLength": 100,
+            "labels": [
+              {
+                "category": "Entity2",
+                "offset": 20,
+                "length": 5
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+# Knowledge Check
+
+1. You've trained your model and you're seeing that it doesn't recognize your entities. What **metric** score is likely low to indicate that issue?
+
+- [x] Recall, indicates how well the model extract entities, regardless of which entity that is.
+
+2. You just finished labeling your data. How and where is that file stored to train your model?
+
+- [x] JSON File, lives next to the dataset in your container for the model to use during training.
+
+3. You train your model with only one source of documents, even though real extraction tasks will come from several sources. What data quality metric do you need to increase?
+
+- [x] Diversity, Having the right data diversity will lead to better extraction performance.
+
+## F1 Score
+
+The strict micro F1 score represents the overall predictive accuracy of your model as measured during performance testing. It's a weighted average between the precision and recall scores, and it ranges from 0% to 100%
+
+## Prescision
+
+The strict micro precision socre compares correct predictions of each entity to all predictions of each entity. It's ratio that incorporates false positives but not false negatives. It's a good metric to look at when the cost of false positives is high, such as email spam detection. It ranges from 0% to 100%.
+
+## Recall
+
+The strict micro recall score compares correct prediction of each class to all actual instances of each class. It's a ratio that incorporates false negatives but not false positives. It's a good metric to look at when the cost of false negatives is high, such as fraud detection or cancer detection. It ranges from 0% to 100%.
+
+# Summary
+
+In this module, you learned how to:
+
+- Understand custom named entities and how they're labeled
+
+- Build a Language service project.
+
+- Label data, train, and deploy an entity extraction model.
+
+- Submit extraction tasks from your own app.

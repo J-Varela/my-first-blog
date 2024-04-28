@@ -6,7 +6,7 @@ export const siteConfig = {
   links: {
     twitter: 'https://twitter.com/',
     github: 'https://github.com/J-Varela',
-    personalSite: 'https://',
+    personalSite: 'https://localhost:3000',
   },
 };
 

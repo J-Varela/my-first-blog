@@ -1,0 +1,119 @@
+---
+title: Azure AI Vision
+description: Learn how to analyze images using the Azure Cognitive Services Computer Vision API.
+date: 2024-04-07
+published: true
+---
+
+# Provision an Azure AI Vision resource
+
+The **_Azure AI Vision_** - service is designed to help you extract information from images. It provides functionality that you can use for:
+
+- **_Description and tag generation_** - determining an appropriate caption for an image, and identifying relevant "tags" that can be used as keywords to indicate its subject.
+- **_Object detection_** - detecting the presence and location of specific objects withing the image.
+- **_People detection_** - detecting the presence, location, and features of people in the image.
+- **_Image metadata, color, and type analysis_** - determining the format and size of an image, it dominant color palette, and whether it contains clip art.
+- **_Category identification_** - identifying an appropriate categorization for the image, and it if it contains any known landmarks.
+- **_Backyard removal_** - detecting the background in an image and output the image with the background transparent or a greyscale alpha matte image.
+- **_Moderation rating_** - determine if the image includes any adult or violent content.
+- **_Optical character recognition_** - reading the text in the image.
+- **_Smart thumbnail generation_** - identifying the main region of interest in the image to create a smaller "thumbnail" version.
+
+![Github Logo](https://learn.microsoft.com/en-us/training/wwl-data-ai/analyze-images/media/computer-vision.png)
+
+You cacn provision **_Azure AI Vision_** as a single-service resource, or you can use the Azure AI Vision API in a multi-service **_Azure AI Services_** reource.
+
+# Analyze an image
+
+To analyze an image, you can use the _\*\*Analyze Image_\*\* REST method or the equivalent method in the SDK for you preferred programming language, specifying the visual features you want to include in the analysis (and if you select categories, whether or not to include details of celebrities or landmarks.) This method returns a JSON document containing the requested information.
+
+_**C# snippet:**_
+
+```js showLineNumbers
+  using Azure.AI.Vision.ImageAnalysis;
+
+  ImageAnalysisClient client = new ImageAnalysisClient(
+    Environment.GetEnvironmentVariable("ENDPOINT"),
+    new AzureKeyCredential(Environment.GetEnvironmentVariable("KEY")));
+
+  ImageAnalysisResult result = client.Analyze(
+    new Uri("<url>"),
+    VisualFeatures.Caption | VisualFeatures.Read,
+    new ImageAnalysisOptions { GenderNeutralCaption = true });
+```
+
+Available visual features are contained in the **VisualFeatures** enum:
+
+- VisualFeatures.Tags: Idenditifies tags about the image, including objects, scenery, setting, and actions
+- VisualFeatures.Objects: Returns the bounding box for each detected object
+- VisualFeatures.Caption: Generates a caption of the image in natural language
+- VisualFeatures.DenseCaptions: Generates more detailed captions for the objects detected
+- VisualFeatures.People: Returns the bounding box for detected people
+- VisualFeatures.SmartCrops: Returns the bounding box of the specified aspect ratio for the area of interest
+- VisualFeatures.Read: Extracts readable text
+
+Specifying the visual features you want analyzed in the image determines what information the response will contain.
+Most responses will contain a bounding box (if a location in the image is reasonable) or a confidence score (for features such as tags or captions).
+
+The JSON response for image analysis looks similar to this example, depending on your requested features:
+
+```js
+{
+  "apim-request-id": "abcde-1234-5678-9012-f1g2h3i4j5k6",
+  "modelVersion": "<version>",
+  "denseCaptionsResult": {
+    "values": [
+      {
+        "text": "a house in the woods",
+        "confidence": 0.7055229544639587,
+        "boundingBox": {
+          "x": 0,
+          "y": 0,
+          "w": 640,
+          "h": 640
+        }
+      },
+      {
+        "text": "a trailer with a door and windows",
+        "confidence": 0.6675070524215698,
+        "boundingBox": {
+          "x": 214,
+          "y": 434,
+          "w": 154,
+          "h": 108
+        }
+      }
+    ]
+  },
+  "metadata": {
+    "width": 640,
+    "height": 640
+  }
+}
+
+```
+
+# Generate a smart-cropped thumbnail and remove background
+
+Thumbnails are often used to provide smaller versions of images in applications and websites. For example, a tourism site might display a list of tourist attractions in a city with a small, representative thumbnail image for each attraction; and only display the full image when the user selects the "details" page for an individual attraction.
+
+The Azure AI Vision service enables you to create a thumbnail with different dimensions (and aspect ratio) from the source image, and optionally to use image analysis to determine the region of interest in the image (its main subject) and make that the focus of the thumbnail. This ability to determine the region of interest is especially useful when cropping the image to change its aspect ratio.
+
+![Github Logo](https://learn.microsoft.com/en-us/training/wwl-data-ai/analyze-images/media/smart-cropping.png)
+You van specify the aspect ratio of the cropped image (width / height), ranging from 0.75 to 1.80.
+
+**Remove image background**
+
+The background removal feature can split the image into the subject in the foreground, and everything else that is considered background. Azure AI Vision achieves this feature by creating an _alpha matte_ of the foreground subject, which is then used to return either the foreground or the background.
+
+For example, take this image original of a stakeholder.
+
+![Github Logo](https://learn.microsoft.com/en-us/training/wwl-data-ai/analyze-images/media/sample-skateboard.jpg)
+With the background removed, we get just the skateborder on a transparent background.
+![Github Logo](https://learn.microsoft.com/en-us/training/wwl-data-ai/analyze-images/media/sample-skateboard-no-background.png)
+
+When creating an alpha matte of an image, the result is the foreground in all white, with a black background.
+
+![Github Logo](https://learn.microsoft.com/en-us/training/wwl-data-ai/analyze-images/media/sample-skateboard-alpha-matte.png)
+
+Alpha matte images are helpful when client applications intend to do further processing of an image that requires seperation of foreground and background objects.

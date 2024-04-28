@@ -1,0 +1,72 @@
+---
+title: Azure AI Custom Vision
+description: This example demonstrates how to use the Image Classification model to classify images.
+date: 2024-04-08
+published: true
+---
+
+# Image Classification
+
+Image classification is a common computer vision problem that requires software to analyze an image in order to categorize (or classify) it. In this module, you will learn how the **_Azure AI Custom Vision_** service enables you to build your own computer vision models for image classification.
+
+# Provision Azure resources for Azure AI Csutom Vision
+
+The **_Azure AI Custom Vision_** service enables you to build your own computer vision models for _image classification_ or _object detection_.
+
+Creating an Azure AI Custom Vision solution involves two tasks:
+
+![Github Logo](https://learn.microsoft.com/en-us/training/wwl-data-ai/classify-images/media/image-classification.png)
+
+1. Use existing (labeled) images to train in Azure AI Custom Vision model.
+2. Create a client application that submits new images to your model to generate predictions.
+
+To use the Azure AI Custom Vision service, you must provision two kinds of Azure resource:
+
+- A **_training_** resource (used to train your models). This can be:
+
+  - An **Azure AI Services** resource.
+  - An **Azure AI Custom Vision** (Training) resource.
+
+- A _prediction_ resource, used by client applications to get predictions to get predictions from your model. This can be:
+
+- An **Azure AI Services** resource.
+- An **Azure AI Custom Vision** (Prediction) resource.
+
+You can use a single **_Azure AI Services_** resource for both training and prediction, and you can mix-and-match resource types (for example, using an **_Azure AI Custom Vision_** (**Training**) resource to train a model that you then publish using an **Azure AI Services** resource).
+
+# Understand image classification
+
+**_Image classification_** is a computer vision technique in which a model is trained to predict a class label for an image based on its contents Usually, the class label relates to the main _subject_ of the image.
+
+For example, the following images have been classified based on the type of fruit they contain.
+
+![Github Logo](https://learn.microsoft.com/en-us/training/wwl-data-ai/classify-images/media/classified-fruit.png)
+
+Models can be trained for multiclass classification (in other words, there are multiple classes, but each image can belong to only one class) or multilabel classification (in other words, an image might be associated with multiple labels).
+
+# Train an image classifier
+
+To train an image classification model with the Azure AI Custom Vision service, you can use the Azure AI Custom Vision protal, The Azure AI Custom Vision REST API or SDK, or a combination of both aproaches.
+
+In most cases, you'll typically use the Azure AI Custom Vision portal to train your model.
+
+![Github Logo](https://learn.microsoft.com/en-us/training/wwl-data-ai/classify-images/media/classified-fruit.png)
+
+The portal provides a graphical interface that you can use to:
+
+1. Create an image classification project for your model and associate it with a training resource.
+2. Upload images, assigning class label tags to them.
+3. Review and edit tagged images.
+4. Train a trained model.
+5. Test a trained model.
+6. Publish a trained model to a prediction resource.
+
+# Knowledge Check
+
+1. You want to train a model that can categorize an image as "cat" or "dog" based on its subject. What kind of Azure AI Custom Vision project should you create?
+
+- **_Image Classification(multiclass)_**. To train a model that classifies an image using a single tag, use an Image classification (multiclass) project.
+
+2. Which of the following _kinds_ of **_Azure resource_** can you use to host a trained Azure AI Custom Vision model?
+
+- **_Azure AI Services._** You can publish a trained Azure AI Custom Vision model to either an Azure AI Services resource or an Azure AI Custom Vision (Prediction) resource.

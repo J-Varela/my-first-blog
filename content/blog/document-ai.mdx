@@ -1,0 +1,36 @@
+---
+title: Plan an Azure AI Document intelligence solution
+description: Knowledge check
+date: 2024-04-26
+published: true
+---
+
+1. **You want to create an Azure AI Document Intelligence model where the documents are in one of three formats: wills, probate declerations, and affidavits. Each has their own specific layout. What type of model should you use that will understand the format of the three document categories?**
+
+- [x] **A composed model**. A composed model consists of multiple custom models. Each submitted form is categorized as one of the custom form types and analyzed using the corresponding custom model.
+
+2. You have developed a custom model that analyzes health assessment forms returned by patients to a medical practice. You've observed too much inaccuracy in the values that the model extracts for each field. What should you do to address this problem?
+
+- [x] **Retrain the model with a larger number of example forms.** The larger the number of example forms you use to train a model, the more accurate it will be and the higher the confidence levels will be.
+
+3. You want to call your Azure AI Document Intelligence solution fromm a mobile app by using an API. Which of the following programming languages is natively supported as an Azure AI Document Intelligence SDK?
+
+- [x] **Python**. Microsoft publishes a Python API you can use to call Azure AI Document Intelligence services.
+
+4. You're building a solution that analyzes sales invoices. You expect to receive up to 10 concurrent requests at busy times and you want your solution to be as simple as possible. What kind of resource should you create?
+
+- [x] **A standard tier Azure AI Document Intelligence resource**. The Standard tier supports up to 15 concurrent requests and you don't need other Azure AI Services.
+
+5. Which of the following is an Azure AI Document Intelligence prebuilt model?
+
+- [x] **Receipt**. The receipt model can identify commonly used fields and their values in scanned or photograped repceipt documents.
+
+# Summary
+
+**Azure AI Document Intelligence** is an AI Solution that can replace manual data entry with automatic analysis of data in printed and hand-written forms and documents. You can use this tool to extract information form forms such as key-value pairs, text, selection marks, and more.
+
+- Descibe the components of an Azure AI Document Intelligence solution
+
+- Create and connect to Azure AI Document Intelligence resources in Azure.
+
+- Choose whether to use a prebuilt, custom, or composed model.

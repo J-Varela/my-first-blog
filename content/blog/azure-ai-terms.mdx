@@ -1,0 +1,149 @@
+---
+title: Prepare to develop AI solutions on Azure
+description: Module 1 - Understand AI-Related terms, Considerations for AI Engineers, Capabilities of Azure Machine Learning, Azure OpenAI Services, Azure Cognitive Search
+date: 2024-04-02
+---
+
+# Understand AI-Related terms
+
+There are several related terms that people use when talking about artificial intelligence. So its useful to have clear definitions for each.
+
+# Data Science
+
+Data science is a discipline that focuses on the processing and analysis of data; applying statistical techniques to uncover and visualize relationships and patterns in the data, and defining experimental models that help explore those patterns.
+
+For example, a data scientist might gather samples of data about the population of an endangered species in a geographical area, and combine it with data about levels of industrialization and economic demographics in the same area. The data can then be analyzed, using statistical techniques to extrapolate from the samples to understand trends and relationships between human activities and wildlife, and test hypothesis using models that show the likely impact of human activity on the wildlife population. By doing so, the data scientists may help determine optimal policies that balance the need for economic wellbeing for the human population with the need for conservation of the endangered species.
+
+# Machine Learning
+
+Machine learning is a subset of data science that deals with the training and validation of predictive models. Typically, a data scientist prepares the data and then uses it to train a model based on an algorithm that exploits the relationships between the features in the data to predict valuse for unknown labels.
+
+For example, a data scientist might use the data they have collected to train a model that predicts the annual growth or decline in population of a species based on factors such as the number of nesting sites observed, the area of land designated as protected, the human population in the local area, the daily volume of traffic on local roads, and so on. This predictive model can then be used as a tool to evaluate plans for housing, infrastructure, and industrial development in the local area and assess their likely impact on the local wildlife.
+
+# Artificial Intelligence
+
+Artificial intelligence usually (but not always) builds on machine learning to create software that emulates one or more characteristics of human intelligence.
+
+For example, balancing the need for wildlife conservation against economic development requires accurate monitoring of the population of the endangered species being protected. It may not be feasible to rely on human experts who can positvely identify the animal in question, or to monitor a large area over a sufficient period of time to get an accurate count. Indeed, the presence of human observers may deter animals and prevent their detection. In this case, a predictive model could be traine to analyze image data taken by motion-activated cameras in remote locations, and predict whether a photograph contains a sighting of the animal. The model could then be used in a software application that responds to automated identification of animals to track animal sightings across a large geographical area, identifying areas with dense animal population that may be candidates for protected status.
+
+# Unit 4: Understand Consideration for AI Engineers
+
+The previous unit introduced the need for considerations for responsible and ethical development of AI-enabled software. In this unit, we'll discuss some core principles for responsible AI that have been adopted at Microsoft.
+
+# Fairness
+
+AI systems should treat all people fairly. For example, suppose you create a machine learning model to support a loan approval application for a bank. The model should make prediction oh whether or not the loan should be approved without incorporating any bias based on gender, ethnicity, or other factors that might result in an unfair advantage or disadvantage to specific groups of applicants.
+
+Fairness of machine learned systems is a highly active area of ongoing research, and some software solutions exist for evaluating, quantifying, and mitigating unfairness in machine learned models. However, tooling alone isn't sufficient to ensure fairness. Consider fairness from the beginning of the application development process; carefully reviewing training data to ensure it's representative of all potentially affected subjects, and evaluating predictive performance for subsections of your user population throughout the development lifecycle.
+
+# Reliability and safety
+
+AI systems should perform reliably and safely. For example, consider an AI-based software system for an autonomous vehicle; or a machine learning model that diagnoses patient symptoms and recommends prescriptions. Unreliability in these kinds of system can result in substantial risk to human life.
+
+As with any software. AI-based software application development must be subjected to rigorous testing and deployment management processes to ensure that they work as expected before release. Additionally, software engineers need to take into account the probabilistic nature of machine learning models, and apply appropriate thresholds when evaluating confidence scores for predictions.
+
+# Privacy and security
+
+AI systems should be secure and respect privacy. The machine learning models on which AI systems are based rely on large volumes of data, which may contain personal details that must be kept private. Even after models are trained and the system is in production, they use new data to make predictions or take action that may be subject to privacy or security concerns; so appropriate safeguards to protect data and customer content must be implemented.
+
+# Inclusiveness
+
+AI systems should empower everyone and engage people. AI should bring benefits to all parts of society, regardless of physical ability, gender, sexual orientation, ethnicity, or other factors.
+
+# Transparency
+
+AI sytems should be understandable. Users should be made fully aware of the purpose of the system, how it works, and what limitations may be expected.
+
+For example, when AI system is based on a machine learning model, you should generally make users aware of factors that may affect the accuracy of its predictions, such as the number of cases use to train the module, or the specific features that have the most influence over its predictions. You should also share information about the confidence score for predictions.
+
+When an AI application relies on personal data, such as a facial recognition system that takes images of people to recognize them; you should make it clear to the user how their data is used and retained, and who has access to it.
+
+# Accountability
+
+People should be accountable for AI systems. Although many AI systems seem to operate autonomously, ultimately it's the responsibility of the developers who trained and validated the models they use, and defined the logic that bases decisions on model predictions to ensure that the overall system meets responsibility requirements. To help meet this goal, designers and developers of AI-based solution should work within a framework of governance and organizational principles that ensure the solution meets ethical and legal standards that are clearly defined.
+
+# Unit 6 - Understand capabilities of Azure Machine Learning
+
+Microsoft Azure provides the Azure Machine Learning service - a cloud-based platform for running experiments at scale to train predictive models from data, and publish the trained models as services.
+
+![Github Logo](https://learn.microsoft.com/en-us/training/wwl-data-ai/prepare-to-develop-ai-solutions-azure/media/azure-machine-learning.png)
+
+Azure Machine Learning provides the following features and capabilities:
+
+| Feature                         | Capability                                                                                                                                                 |
+| ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Automated machine learning      | This feature enables non-experts to quickly create an effective machine learning model from data.                                                          |
+| Azure Machine Learning designer | A graphical interface enabling no-code development of machine learning solution.                                                                           |
+| Data and compute management     | Cloud-based data storage and compute resources that professional data scientists can use to run data experiment code at scale.                             |
+| Pipelines                       | Data scientists, software engineers, and IT operations professionals can define pipelines to orchestrate model training, deployment, and management tasks. |
+
+Data scientists can use Azure Machine Learning throughout the entire machine learning lifecycle to:
+
+- Ingest and prepare data.
+- Run experiments to explore data and train predictive models.
+- Deploy and manage trained models as web services.
+
+Software engineers may interact with Azure Machine Learning in the following ways:
+
+- Using Automated Machine Learning or Azure Machine Learning designer to train machine learning models and deploy them as services that can be integrated into AI-enabled applications.
+- Collaborating with data scientists to deploy models based on common frameworks such as Scikit-Learn, PyTorch, and TensorFlow as web services, and consume them in applications.
+- Using Azure Machine Learning SDKs or command-line interface (CLI) scripts to orchestrate DevOps processes that manage versioning, deployment, and testing of machine learning models as part of an overall application delivery solution.
+
+# Unit 7 - Understand capabilities of Azure OpenAI Services
+
+| Natural Language Processing | Knowledge mining and Document intelligence | Computer Vision               | Decision Support   | Generative AI           |
+| --------------------------- | ------------------------------------------ | ----------------------------- | ------------------ | ----------------------- |
+| Text Analysis               | Content AI Search                          | Image analysis                | Content Safety     | Azure OpenAI Service    |
+| Question ansering           | Document Intelligence                      | Video Analysis                | Content Moderation | DALL-E Image generation |
+| Language Understanding      | Custom Document intelligence               | Image Classification          |                    |                         |
+| Translation                 | Custom Skills                              | Object Detection              |                    |                         |
+| Named entity recognition    |                                            | Facial Analysis               |                    |                         |
+| Custom text classification  |                                            | Optical Character Recognition |                    |                         |
+| Speech                      |                                            | Azure AI Video                |                    |                         |
+| Speech Translation          |                                            |                               |                    |                         |
+
+# Unit 8 - Understand capabilities of the Azure OpenAI Service
+
+Generative Ai is a relatively new and quickly progressing field of AI focused on AI models that generate content. Content that these models generate can be in the form of text, images, code or more, and in a way that almost feels like interacting with a real person in a real conversation. Generative AI models depend on large language models (LLMs) based on the transformer architecture that evolved from years of machine learning progress. Generative AI models are often queried with naturla language prompts, and return an impressively accurate response when prompted correctly.
+
+Azure OpenAI service is an Azure AI service for deploying, utilizing, and fine-tuning models developed by OpenAI. OpenAI, the company who built ChatGPT, is one of the most popular applications most people have seen, and the models behind that ChatGPT uses are available through the Azure OpenAI Service. You can develop applications that use the powerful generative AI models in Azure OpenAI to further utilize this technology.
+
+AI engineers can develop applications that use the powerful generative AI models in Azure OpenAI to further utilize this technology. Bot REST and language specific SDKs are available when developing applications.
+
+# Unit 9 - Understand capabilities of Azure Cognitive Search
+
+Searching for information is a common requirement in man applications, from dedicated search engine web sites to mobile apps that can find context-appropriate information based on where you are and what you want to accomplish.
+
+![Github Logo](https://learn.microsoft.com/en-us/training/wwl-data-ai/prepare-to-develop-ai-solutions-azure/media/cognitive-search.png)
+
+**Azure AI Search** is an **Applied AI Service** that enables you to ingest and index data from various sources, and search the index to find, filter, and sort information extracted from the source data.
+
+In additition to basic text-based indexing, **Azure AI Search** enables you to define an enrichment pipeline that uses AI skills to enhance the index with insights derived from the source data - for example, by using computer vision and natural language processing capabilities to generate descriptions of images, extract text from scanned documents, and determine key phrases in large documents that encapsulate their key points.
+
+Not only does this AI enrichment produce a more useful search experience, the insights extracted by your enrichment _pipeline_ can be persisted in a **knowledge store** for further analysis or integration into a data pipline for a business intelligence solution.
+
+## Knowledge Checkpoint
+
+1. **Which of the following best describes the prediction made by a machine learning model?**
+
+- Answer: _Probabilistic values based on correlations found in training data._
+
+2. **A data scientist has used Azure Machine Learning to train a machine learning model. How can you use the model in your application?**
+
+- Answer: _Use Azure Machine Learning to publish the model as a web service._
+
+3. **You want to index a collention of text documents, and search them from a mobile application. Which service should you use to create the index?**
+
+- Answer: _Azure AI Search_
+
+# Summary
+
+In this module, you learned how to:
+
+- Define aritificial intelligence
+- Understand AI-related terms.
+- Understand considerations for AI engineers.
+- Understand capabilities of Azure Machine Learning.
+- Understand capabilities of Azure OpenAI Service.
+- Understand capabilities of Azure AI Search.
+- Understand capabilities of Azure AI Services.

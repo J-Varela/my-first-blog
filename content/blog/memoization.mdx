@@ -1,0 +1,81 @@
+---
+title: Memoization, Cached Data, and Revalidation in Next.js
+description: Learn about memoization, cached data, and revalidation in Next.js, and how they can be used to optimize performance and improve user experience.
+date: 2024-03-29
+published: true
+---
+
+# Memoization
+
+Memoization is a technique used to optimize the performance of a function by `caching` its output. This can be useful when the function is called multiple times with the same input, as it avoids redundant computations.
+
+# What is Cached Data
+
+Instead of discarding the response after its been used once, the application stores a copy of the response locally. This can be done in various ways, such as in memory, in a browser's cache, or in a dedicated caching layer.
+
+- Reuse: The next time the application needs the same data, it first checks if a cached copy exists. If it does, the application can use the cached data instead of making another network request. This saves time and resources and can significantly improve performance, especially for frequently accessed data.
+
+- Expirysp: Cached data can be set to expire after a certain period of time. This ensures that the application always has access to fresh data and prevents the cache from becoming stale.
+
+# Cached data can be useful in a variety of scenarios, including:
+
+- `Reducing Network Requests`: By caching responses from API calls, reducing bandwitdh usage and latency, the application can avoid making redundant network requests and improve performance.
+
+- `Offline Access`: Cached data can be used to provide offline access to certain parts of an application. When network connectivity is unavailable, the application can fall back on locally cached data instead of failing completely.
+
+# Revalidating on Next.js
+
+No matther how many times you reload the page...
+You can revalidate cache seperate from one another
+
+- ## Time-based Revalidation:
+
+  Revalidate data after a certain amount of time has passed and a new request is made. This is useful for data that changes infrequently and freshness is not as critical.
+
+- ## On-Demand Revalidation
+  To revalidate data at a time interval, you can use the `next.revalidate`
+
+# Time-Based Revalidation
+
+To revalidate data at a timed interval, you can use the `next.revalidate` option of fetch to set the cache lifetime of a resource (in seconds).
+
+```js {2} showLineNumbers
+// Revalidate at most every hour
+fetch('https://...', { next: { revalidate: 3600 } });
+```
+
+{/* images */}
+![GitHub Logo](https://nextjs.org/_next/image?url=%2Fdocs%2Fdark%2Ftime-based-revalidation.png&w=3840&q=75)
+
+- The first time a fetch request with `revalidate` is called, the data will be fetched from the external data source and stored in the Data Cache.
+
+- Any requests that are called within the specified timeframe(e.g. 60-seconds) will return the cached data.
+
+- After the timeframe, the next request will still return the cached (now stale) data.
+
+- Next.js will trigger a revalidation of the data in the background.
+- Once the data is fetched successfully, Next.js will update the Data Cache with the fresh data.
+
+- If the background revalidation fails, the previous data will be kept unaltered.
+
+## On-Demand Revalidation
+
+Data can be revalidated on-demand by path `(revalidatePath)` or by cache tag `(revalidateTag)`.
+
+# How On-Demand revalidation works:
+
+![GitHub Logo](https://nextjs.org/_next/image?url=%2Fdocs%2Fdark%2Fon-demand-revalidation.png&w=3840&q=75)
+
+- The first time a fetch request is called, the data will be fetched from the external data source and stored in the Data Cache.
+
+- When an On-Demand revalidation is triggered, the appropriate cache entries will be purged from the cache.
+
+- This is different from time-based revalidation, which kepps the stale data in the cache until the fresh data is fetched.
+
+- The next time a request is made, it will be a cache MISS again, and the data will be fetched from the external data source and stored in the Data Cache.
+
+# Data Cache and Full Route Cache
+
+- Revalidating or opting out of the Data Cache will invalidate the Full Route Cache, as the render output depends on data.
+
+- Invalidating or opting out of the Full Route Cache does not affect the data Cache. you can dynamically render a route that has both cached and uncached data. This is useful when most of your page uses cached data, but you have a few components that rely on data that needs to be fetched at request time. you can dynamically render without worrying about the performance impact of re-fetching all the data.

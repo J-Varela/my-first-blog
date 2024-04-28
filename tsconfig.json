@@ -27,7 +27,9 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "content/blog/github-markdown.mdx"
+    "content/blog/github-markdown.mdx",
+    "content/blog/azure-fundamental-ai-concepts.mdx",
+    "content/blog/azure-image-analysis.mdx"
   ],
   "exclude": ["node_modules"]
 }

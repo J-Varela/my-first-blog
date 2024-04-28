@@ -1,0 +1,182 @@
+---
+title: Secure Azure AI Services
+description: Module 3 - Learn how to secure Azure AI Services
+date: 2024-04-04
+published: true
+---
+
+# Unit 1 of 6: Introduction to Azure AI Services Security
+
+Azure AI services provides multiple layers of security that you should consider when implementing a solution.
+
+After completing this Module, you'll learn how to:
+
+- Consider authentication for Azure AI Services.
+- Manage network security for Azure AI Services.
+
+# Unit 2: Authentication for Azure AI Services
+
+# Consider authentication
+
+By default, access to Azure AI services resources is restricted by using subscription keys. Management of access to these keys is a primary consideration for sercurity.
+
+# Regenerate Keys
+
+You should regenerate keys regularly to protect against the risk of keys being shared with or accessed by unauthorized useStyleRegistry. You can regenerate keys using the Azure Portal, or using the _az cognitiveservices account_ _keys regenerate_ Azure command-line interface (CLI) command.
+
+Each AI service is provided with two keys, enabling you to regenerate keys without service interruption. To accomplish this:
+
+1. If you're using both keys in production, change your code so that only one key is in use. For example, configure all production applications to use Key 1.
+
+2. Regenerate Key 2.
+3. Switch all production applications to use the newly regenerated Key 2.
+4. Regenarate key 1
+5. Finally, update your production code to use the newly key 1.
+
+For example, to regenerate keys in the Azure Portal, you can do the following:
+
+1. In the Azure portal, go to your resource's Keys and Endpoint panel.
+2. Then select **Regenerate Key1** or select **Regenerate Key2**, depending on which one you want to regenerate at the time.
+
+# Protect Keys with Azure Key Vault
+
+Azure Key Vault is an Azure service in which you can securely store secrets (such as passwords and keys). Access to the key vault is granted to _security principals_, which you can think of user identities that are authenticated using Microsoft Entra ID. Administrators can assign a security principal to an application (in which case it is known as a _service principal_) to define a _managed identity_ for the application. The application can then use this identity to access the key vault and retrieve a secret to which it has access. Controlling access to the secret in this way minimizes the risk of it being compromised by being hard-coded in an application or saved in a configuration file.
+
+You can store the subscription keys for an AI services resource in Azure Key Vault, and assing a managed identity to client applications that need to use the service. The applications can then retrieve the key as needed from the key vault, without risk of exposing it to unauthorized users.
+
+![Github Logo](https://learn.microsoft.com/en-us/training/wwl-data-ai/secure-ai-services/media/azure-key-vault.png)
+
+# Token-based authentication
+
+When using the REST Interface, some AI services support (or even require) token-based authentication. In these createSecureServer, the subscription key is presented in an initial request to obtain an authentication token, which has a valid period of 10 minutes. Subsequent requests must present the token to validate that the caller has been authenticated.
+
+# Microsoft Entra ID authentication
+
+Azure AI services supports Microsoft Entra ID authentication, enabling you to grant access to specific service principals or managed identities for apps and services running in Azure.
+
+There are different ways you can authenticate against Azure AI services using Microsoft Entra ID, including:
+
+# Authenticate using service principals
+
+The overall process to authenticate against Azure AI services principals is as follows:
+
+# Create a custom subdomain
+
+You can create a custom subdomain in different ways including through the Azure portal, Azure CLI, or PowerShell.
+
+For example, you can create a subdomain using PowerShell in the Azure Cloud Shell. To do this, you select your subscription using the following
+
+```powershell
+Set-AzContext -SubscriptionName <Your-Subscription-Name>
+```
+
+Then, you create your Azure AI services resource specifying a custom subdomain by running the following:
+
+```powershell
+$account = New-AzCognitiveServicesAccount -ResourceGroupName <your-resource-group-name> -name <your-account-name> -Type <your-account-type> -SkuName <your-sku-type> -Location <your-region> -CustomSubdomainName <your-unique-subdomain-name>
+```
+
+Once created, your subdomain name will be returned in the response.
+
+# Assign a role to a service principal
+
+You've created an Azure AI resource that is linked with a custom subdomain. NextDataPathnameNormalizer, you assign a role to a service principal.
+To start, you'll need to register an application. To do this, you run the following command:
+
+```powershell
+$SecureStringPassword = ConvertTo-SecureString -String <your-password> -AsPlainText -Force
+
+$app = New-AzureADApplication -DisplayName <your-app-display-name> -IdentifierUris <your-app-uris> -PasswordCredentials $SecureStringPassword
+```
+
+This creates the application resource.
+
+Then you use the **New-AzADServicePrincipal** command to create a service principal and provide your application's ID:
+
+```powershell
+New-AzADServicePrincipal -ApplicationId <app-id>
+```
+
+Finally, you assign the **Cognitive Services Users** role to your service principal by running:
+
+```powershell
+New-AzRoleAssignment -ObjectId <your-service-principal-object-id> -Scope <account-id> -RoleDefinitionName "Cognitive Services User"
+```
+
+# Authenticate using managed identities
+
+Managed identities come in two types:
+
+- **System-assigned managed identity**: A managed identity is created and linked to a specific resource, such as a virtual machine that needs to access Azure AI services. When the resource is deleted, the identity is deleted as well.
+
+- **User-assigned managed identity**: The managed identity is created to be useable by multiple resources instead of being tied to one. It exists independently of any single resource.
+
+You can assign each type of managed identity to a resource either during creation of the resource, or after it has already been created.
+
+For example, suppose you have a virtual machine in Azure that you intend to use for daily access to Azure AI services. To enable a system-assigned identity for this virtual machine, first you make sure your Azure accoutn has the **Virtual Machine Contributo role**. Then you can run the following command using Azure CLI in the Azure Cloud Shell terminal:
+
+```bash
+az vm identity assign -g <my-resource-group> -n <my-vm>
+```
+
+Then you can grant access to Azure AI services in the Azure portal using the following:
+
+1. Go to the Azure AI services resource you want to grant the virtual machine's managed identity access.
+
+2. In the overview panel, select **Access control (IAM)**.
+
+3. Select **Add**, and then select **Add role assignment**.
+
+4. In the Role tab, select **Cognitive Services Contributor**.
+
+![GithubLogo](https://learn.microsoft.com/en-us/training/wwl-data-ai/secure-ai-services/media/select-contributor-role-small.png)
+
+5. In the Members tab, for the Assign to, select **Managed Identity**. Then, select **+Select members**.
+
+![Github Logo](https://learn.microsoft.com/en-us/training/wwl-data-ai/secure-ai-services/media/select-managed-identity-small.png)
+
+6. Ensure that your subscription is selected in the Subscription
+
+7. Select your virtual machine in the list, and select **Select**.
+
+8. Finally, select **Review + assign** to review, and then **Review + assign** again to finish.
+
+# Unit 3
+
+## Implement network security
+
+Network security is an important measure to ensure unauthorized users can't reach the services that you are protecting. Limiting what users can see is always a great idea, since they can't compromise what they can't see.
+
+# Apply network access restrictions
+
+By default, Azure AI services are accessible from all networks. Some individual AI services resources (such as Azure AI Face service, Azure AI Vision, and others) can be configured to restrict access to specific network addresses - either public Internet addresses or addresses on virtual networks.
+
+![Github Logo](https://learn.microsoft.com/en-us/training/wwl-data-ai/secure-ai-services/media/network-access.png)
+
+With network restrictions enabled, a client trying to connect from an IP address that isn't allowed will receive an Access Denied error.
+
+# Unit 4
+
+## Exercise - Manage Azure AI Services Security
+
+This unit includes a Lab .
+
+# Unit 5
+
+## Knowledge checkpoint
+
+1. You need to regenerate the primary subscription key for an Azure AI Services resource that an app uses. What should you do first to minimize service interruption for the app?
+   answer: Change the app to use the secondary key.
+
+2. You want to store the subscription keys for an Azure AI Services resource securely, so that authorized apps can retrieve them when needed. What kind of Azure resource should you provision.
+   answer: Azure Key Vault
+
+3. When running code on your computer that connects to Azure AI Services, you receive an error that access is denied due to Virtual Network/Firewall rules. What configuration do you need to set in the Azure AI Services instance?
+   answer: In Networking properties, configure Selected Networks and Private Endpoints .
+
+# Summary:
+
+In this module, you learned how to:
+
+- Consider authentication for AI services.
+- Manage network security for AI services.

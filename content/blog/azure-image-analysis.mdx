@@ -1,0 +1,52 @@
+---
+title: Read Text in images and documents with the Azure AI Vision service
+description: Image Analysis API
+date: 2024-04-10
+published: true
+---
+
+# Intro
+
+Azure's AI Vision service uses algorithms to process images and return information. This module teaches you how to use the **Image Analysis API** for optical character recognition **(OCR)**.
+
+## Learning Objectives
+
+- Read text from images using OCR.
+- Use the Azure AI Vision service Image Analysis with SDKs and the REST API
+- Develop an application that can read printed and handwritten text
+
+# Unit 1
+
+Suppose you are given thousands of images and asked to transfer the text on the images to a computer database. The scanned images have text organized in different formats and contain multiple languages. What are some ways you could complete the project in a reasonable time frame and make sure the data is entered with a high degree of accuracy?
+
+Companies around the world are tackling similar scenarios every day. Without AI Services, it would be challenging to complete the project, especially if it where to change in scale.
+
+Using AI services, we can treat this project as an Azure AI Vision scenario and apply Optical Character Recognition (OCR). OCR allows you to extract text from images, such as photos of street signs and products, as well as from documents - such as handwritten or unstructured documents.
+
+To build an automated AI Solution, you need to train machine learning models to cover many use cases. Azure AI Vision service gives access to advanced algorithms for processing images and returns data to secure Storage.
+
+_In this module, you'll learn how to_:
+
+- Identify how the _Azure AI Vision service_ enables you to _read text from images_.
+- Use the Azure AI Vision service with **SDKs** and the **REST API**
+- Develop an application that can read **_printed and handwritten text_**
+
+# Knowledge Check
+
+1. Which API would be best for this scenario? You need to read a large number of files with high accuracy. The text is short sections of handwritten text, some in English and some of it is in multiple languages.
+
+- [ ] A custom language API
+- [ ] Document Intelligence API
+- [x] Image Analysis API
+
+2. What levels of division are the OCR results returned?
+
+- [ ] Only total content and pages
+- [x] Blocks, words and lines of text.
+- [ ] Total Content, image tags, pages words and lines of text.
+
+3. You've scanned a letter into PDF format and need to extract the text it contains. What should you do?
+
+- [ ] Use the Azure AI Custom Vision service
+- [ ] Use the Image Analysis API of the Azure AI Vision service
+- [x] Use the Document Intelligence API.

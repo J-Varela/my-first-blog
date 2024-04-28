@@ -1,0 +1,14 @@
+---
+title: NVIDIA Ominverse & Software Development Kit
+description: SDK
+date: 2024-04-14
+published: true
+---
+
+## What is an SDK?
+
+An SDK, or **Software Development Kit**, is a set of tools, libraries, documentation, and guidelines that developers use to create software applications for a specific platform, operating system, or framework. SDKs provide ready-made components and resources that simplify and accelerate the development process by abstracting away complex tasks or providing pre-built functionalities. They often inlude APIs (Application Progamming Interfaces) that allow developers to interact with the underlying system or services in a standardized way. SDKs are commonly used for building applications for platforms such as mobile devices, web services, game consoles, and IoT (Internet of Things) devices.
+
+# Omniverse
+
+NVIDIA Omniverse is a platform of APIs, SDKs, and services that enable developers to easily integrate Universal Scene Description (OpenUSD) and RTX rendering technologies into existing software tools and simulation workflows for building AI systems.

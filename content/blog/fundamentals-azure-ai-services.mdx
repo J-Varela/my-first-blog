@@ -1,0 +1,67 @@
+---
+title: Fundamentals of Azure AI services
+description: Learn the fundamentals of how Azure AI services can be used to build applications.
+date: 2024-03-28
+published: true
+---
+
+# Fundamentals of Azure AI services
+
+Learning objectives:
+
+- Understand applications Azure AI services can be used to build.
+- Understand how to access Azure AI services in the Asure portal
+- Understand how to use Azure AI services keys and endpoint for authentication
+- Create and use an Azure AI services resource in a Content Safety Studio setting
+
+## Use of Azure AI services
+
+Once you create an Azure AI service resource, you can build applications using the REST API, software development kits (SDKs), or visual studio interfaces.
+
+## Using service studio interfaces.
+
+Studio interfaces provide a friendly user interface to explore Azure AI services. There are different studios for different Azure AI services, such as `Vision Studio`, `Language Studio`, `Speech Studio`, and the `Content Safety Studio`. You can test out Azure AI services using the samples provided, or experiment with your own Content. A studio-based approach allows you to explore, and evaluate Azure AI services regardless of your experience with AI or coding.
+
+# Associate the AI service resource
+
+Before you can use an AI service resource, you must associate it with the studio you want to use on the Settings page. Select the resource, and then select Use Resource. You are then ready to explore the Azure AI service within the studio.
+
+![Github Logo](https://learn.microsoft.com/en-us/training/wwl-data-ai/fundamentals-azure-ai-services/media/content-safety-resource-example.png)
+
+As an example, let's look at the Azure AI Content Safety services, which identifies harmful text or images. To explore what the Content Safety service does, let's use the Content Safety Studio. First create either a multi-service Azure AI services resource, or a single-service Content Safety resource. Then, on the Content Safety Studio Settings page, select the resource, and select Use Resource. The AI service you created is now associated with the Content Safety Studio, and ready to be used.
+
+# Understand authentication for Azure AI services
+
+You've now learned how to create an AI service resource and associate it with an Azure AI studio. But how do you ensure that only those authorized have access to your AI service? This is done through authentication, the process of verifying that the user of service is who they say they are, and that they are authorized to use the service.
+
+Most Azure AI services are accessed through a RESTful API, although there are other ways. The API defines what information is passed between two software components: the Azure AI service and whatever is using it. Having a clearly defined interface is important, because if the AI service is updated, your application must continue to work correctly.
+
+Part of what an API does is to handle authentication. Whatever a request is made to use an AI service resource, that request must be authenticated. For example, your subscription and AI service resource is verified to ensure you have sufficient permission to access it. This authentication process uses an endpoint and a resource key.
+
+The endpoint describes how to reach the AI service resource instance that you want to use, in a similar way to the way a URL identifies a web site. When you view the endpoint for your resource, it will look something like this:
+
+```
+https://myaiservices29.cognitiveservices.azure.com/
+```
+
+The resource key protects the privacy of your resource. To ensure this is always secure, the key can be changed periodically. You can view the endpoint and key in the Azure portal under Resource Management and Key and Enpoint.
+
+![Github Logo](https://learn.microsoft.com/en-us/training/wwl-data-ai/fundamentals-azure-ai-services/media/azure-portal-keys-endpoints.png)
+
+When you write code to access the AI service, the keys and endpoint must be included in the authentication header. The authentication header sends an authorization key to the service to confirm that the application can use the resource.
+
+When you use a studio interface with Azure AI services, your credentials are authenticated when you sign in, and a similar process is happening in the background.
+
+# Knowledge check
+
+1. An application requires three seperate AI services. To see the cost for each seperately, what type of resource should be created?
+
+- A single-service resource for each AI service
+
+2. Afte logging into one of the Azure studios, what is one task to complete to begin using the studio?
+
+- Associate a resource with the studio.
+
+3. What is an Azure AI services resource?
+
+- A bundle of several AI services in one resource
