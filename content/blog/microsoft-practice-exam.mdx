@@ -1,0 +1,719 @@
+---
+title: Microsoft practice exam
+description: AI-102 2024
+date: 2024-05-02
+published: true
+---
+
+1. You have an Azure Open AI Solution. The solution uses a specific GPT 3.5 Turbo model version that was current during initial deployment. Auto-update is disabled.
+   Some time late, you investigate the deployed solution and discover that it uses a newer version of the model.
+   **Why was the model updated?**
+
+- [x] The model version reached its retirement date.
+
+2. You are creating an application that references the Azure OpenAI REST API for a DALL-E model.
+   You plan to use thumbnails of the images that DALL-e generates and display them in a table on a webpage.
+   You need to find the image URLs in the JSON response.
+   **Which element should you review**?
+
+- [x] The result element.
+
+3. You are building a web app that will generate images based on user prompts. The app will use the DALL-E 3 Azure OpenAI model.
+   You need to ensure that HTTP requests against the Azure OpenAI API successfully generate images.
+   Which HTTP body property should you include?.
+
+- [x] The Prompt, is the only required property to be used
+
+4. You are building a solution that uses Azure AI Search.
+
+**You need to define the field attributes** for a field where the search results will include a **hit count by category**.
+
+Which **attribute** should you assign to the field?
+
+- [x] **facetable**.
+
+  - explanation: **facetable** is typically used in a presentation of search results that includes a hit count by category.
+    **Filterable** is referenced in **_$filter_** queries, and **key** is a unique identifier for documents within the index.
+
+- [ ] filterable
+- [ ] key
+
+5. You are building a solution that uses **_Azure AI Search_**.
+   You need to **execute the initial run of the indexer**.
+   **Which stages will be included** during the initial run?
+
+   - [ ] connecting to an Azure data source, creating an index schema, and running the wizard to create objects and load data.
+
+   - [ ] creating a data source, creating an index, and creating and running the indexer.
+
+   - [x] **_document cracking, field mapping, skillset execution, and output field mapping_**.
+     - explanation: Document cracking, field mapping, skillset execution, and output field mapping are the stages of indexing. Creating a data source, creating an index, and creating and running the indexer are the stages to create an indexer. Connecting to an Azure data source, creating an index schema, and running the wizard to create objects and load data are the stages for the import Data wizard.
+
+6. You are building a solution that uses **Azure AI Search**.
+   You need to create a **skillset definition**.
+   What are **minimum serctions** you should **include in the defintion?**
+
+- [x] **name, Description, and skills**
+
+  - explanation: Only **name, Description, and skills** are required.
+    **cognitiveServices** is used for billable skills that call Cognitive Services APIs.
+
+    **KnowledgeStore** specifies an Azure Storage account and the setting for projecting the skillset output into tables, blobs, and files in Azure Storage.
+
+    **encriptionKey** specifies and Azure key vault and customer-managed keys used to encrypt sensitive content (descriptions, connection strings, keys) in a skillset definition.
+
+7. You have a web app named App1 that **_performs customs searches._**
+   You are building a solution that uses **Azure AI Search**.
+   You need include App1 as a custom skill as part of the solution.
+
+   Which **@odata.type** should you use to **_call App1?_**
+
+   - [x] **Microsoft.Skills.Custom.WebApiSkill**
+     - explanation: **Microsoft.Skills.Custom.WebApiSkill** allows the extensibility of an AI enrichment pipeline by making an HTTP call to a custom web API.
+
+8. You are building a **knowledge mining solution** that will use **_AI enrichment_** and **Azure AI Search**.
+   You need to **create a data structure** that will be used to **store** the enriched and **indexed output** for downstream apps.
+
+What should you create?
+
+- [x] **a knowledge store**
+
+  - explanation: A Knowledge store is used for downstream apps, such as knowledge mining and data science. A knowledge store is defined within a skillset. Its defintion determines whether your enriched documents are projected as tables or objects (files or blobs) in Azure Storage.
+
+        Documentation:
+
+        - AI enrichment concepts - Azure Cognitive Search | Microsoft Learn
+          https://learn.microsoft.com/azure/search/cognitive-search-concept-intro
+
+The following diagram shows the progression of AI enrichment.
+![GithubLogo](https://learn.microsoft.com/en-us/azure/search/media/cognitive-search-intro/cognitive-search-enrichment-architecture.png)
+
+9. You are building a **knowledge mining solution** that uses **Azure AI Search**.
+
+You **need to extract content from a file** within the enrichment pipeline by using **AI enrichment**.
+
+Which built-in skill should you use?
+
+- [x] **Microsoft.Skills.Util.DocumentExtractionSkill**
+  - explanation: **Microsoft.Skills.Util.DocumentExtractionSkill** is the built-in skill used to extract content from a file within the enrichment pipeline.
+
+Documentation: Built-in skills - Azure Cognitive Search | Microsoft Learn
+https://learn.microsoft.com/azure/search/cognitive-search-predefined-skills
+
+10. You build an app named App1 that uses Azure Ai Face service.
+
+You need to optimize the app for the images that contain blurry faces.
+
+What should you do?
+
+- [x] Set the detection model to **detection_02**
+
+  - explanation: Model_2 improves accuracy on small, side-view, and blurry faces. Changing the recognition model to recognition_02 will improve facial recognition and faceIdTimeToLive is used for the number of seconds that the face ID is cached, which has no impact on blurry faces.
+
+  Documentation:
+
+  How to specify a detection model - Face - Azure Cognitive Services | Micosoft Learn
+  https://learn.microsoft.com/azure/cognitive-services/computer-vision/how-to/specify-detection-model
+
+11. You are building an app that will use Azure AI Vision to detect the presence of people in a video feed.
+
+Which Azure AI Vision feature should you use?
+
+- [x] **Spatial Analysis**
+  - explanation: The only visual feature that provides this capability is Spatial Analysis, as OCR, Image Analysis, and face detection are not meant to analyze the presence of people ina video feed.
+
+https://learn.microsoft.com/azure/cognitive-services/computer-vision/overview
+
+12. You are creating an assistant based on a generative Azure AI model.
+    You plan to use the system message component for prompts in the solution.
+    **Which two capabilities does the system message offer for the model?**
+
+- [x] Defines what the model should and should not do
+
+- [x] helps define the assistant personality
+
+## Security Topic
+
+13. You are provisioning an Azure Open AI resource.
+
+You need to ensure that the resource is only available to applications that are hosted in you Azure subscription.
+
+**Which network security setting should you configure**?
+
+- [x] Disabled, and allow private endpoint connection to establish access.
+  - explanation: Because the requirements state that access to the resource should only be for application hosted in the Azure subscription, setting the network option to **Disabled and configuring a private endpoint meets this requirement**. All networks permit access to any network, including the internet. Selected networks access to networks outside of Azure, if configured that way.
+
+14. You are creating an application that references the Azure OpenAI REST API for a DALL-E model.
+
+You plan to use thumbnails of the images that DALL-E generates and display them in a table on webpage.
+
+You need to fint the image URLs in the JSON response.
+
+**Which element should you review**?
+
+- [x] **the result element**. The result from the initial requests does not immediately return the results of the image generation process. Instead, the response includes an **operation-location** header with a URL for a calback service that your application code can poll until the results of the image generation are ready. The **result** element includes a collection of **url** elements, each of which references a PNG image file generated from the prompt.
+
+15. You are building a web app that will generate images based on user prompts. The app will use the DALL-E 3 Azure OpenAI model.
+
+You need to ensure that HTTP requests against the Azure OpenAI API successfully generate images.
+
+**Which HTTP body property should you include?**
+
+- [x] **the prompt**.
+  - explanation: The prompt is the only required property to be used in the body of the HTTP request when requesting to generate a new image by using the DALL-E 3 Azure OpenAI API. The other properties are used in the HTTP header.
+
+## Azure AI Search
+
+16. You are deploying an Azure OpenAI service.
+
+You plan you use your own data in the models you will deploy.
+
+You need to ensure that the model can index your data sources.
+
+**Which additional Azure service should you deploy**?
+
+- [x] Azure AI Search
+  - explanation: Azure OpenAI on your data enables developers to use supported AI chat models that can reference specific sources of information to ground the response. Adding this information allows the model to reference both specific data probided and its pretrained knowledge to provide more effective responses. Azure OpenAI on your data utilizes the search ability of Azure AI Search to add the relevant data chunks to a prompt.
+    Azure OpenAI on your data still uses a stateless API to connect to the model, which removes the requirement of training a custom model with your data and simplifies the interaction with the AI model. Cognitive Search first finds the useful information to answer the prompt, and Azure OpenAI forms the response based on that information.
+
+17. You are building a GPT-based chat application that will answer questions about your company.
+
+You plan to use the Using your data feature in Azure OpenAI to ground the model with company data.
+
+**Which four types of files can you use to ground the model?**
+
+- [x] HTML
+- [x] MD
+- [x] PDF
+- [x] TXT
+
+  - explanation: Currently only TXT, MD, HTML, PDF, Microsoft Word, and PowerPoint files can be used and are supported using the "Using you data" feature in Azure OpenAI. ZIP and XML files are not supported.
+
+18. You are building a GPT-based chat application that will answer questions about your company.
+
+You plan to test the application by using strategies defined by Microsoft best practices.
+
+**Which three prompt engineering strategies should you consider while testing the application?**
+
+- [x] Be Descriptive
+- [x] Be Specific
+- [x] Order Matters
+
+  - explanation: Be specific means to leave as little to interpretation as possible. Be Descriptive means to use anologies. Order Matters means that the order in which you present information to the model can affect the output. Therefore, those three are valid best practices.
+
+19. You are creatin an application that will use Azure OpenAI REST API services. The application uses a REST call to DALL-E model generate images. The three parameters in the REST call are **prompt, n, and size**.
+
+**What does the size parameter indicate**?
+
+- [x] the size of the images in pixel resolution.
+
+  - explanation: To make a REST call to the services, you need thwssweee endpoint and authorization key for the Azure OpenAI service resource you provisioned in Azure
+
+19. You are building a knowledge mining solution by using Azure AI Search.
+
+You need to ensure that the solution supports wildcard queries in search requests.
+
+**What should you include in the REST API request?**
+
+- [x] "queryType: full"
+
+20. You have an app named App1 that analyzes social media mentions and determines whether comments are positive or negative.
+
+During testing, you notice that App1 generates negative sentiment analysis in response to customer feedback that contains positive feedback.
+
+You need to ensure that App1 includes more granular information during the analysis.
+
+What should you add the API requests?
+
+- [x] opinionMining=true
+
+  -explanation: **opinionMining=true** will add aspect-based sentiment analysis, which in turn will make the sentiment more granular so that positive and negative in a single sentence can be returned.
+
+  **loggingOptOut=true** will opt out of logging and **StringIndexType=TextElements_v8** will set the returned offset and length values to correspond with **TextElements**.
+
+20. You are building an app that will analyze resumes and remove names and addresses.
+
+You need to configure the Azure AI Language Personally Identifiable Information (PII) detection feature for that app.
+
+Which categories should you specify in the request?
+
+- [x] Person and Address only
+
+  - explanation: Person and Address will detect names and addresses.
+    PersonType will also remove job roles. IP will also remove IP addresses.
+
+## Sentiment analysis document reading
+
+21. You are building an app that will analyze the sentiment of user feedback by using Azure AI Language.
+
+You have a test document named Test.docx that contains one positive sentence and multiple neutral sentences.
+
+You need to validate the appp by analyzing Test.docx
+
+Which label will the app return for **Test.docx.**
+
+- [x] positive.
+
+  - explanation: If there is at least one positive sentence in the document, and the rest of the document is neutral, then the document label is positive.
+
+22. You need to build an app that will summarize text documents into key phrases.
+
+Which Azure AI Language feature should you recommend?
+
+- [x] key phrase extraction
+
+  - explanation: Key phrase extraction is used to quickly identify the main concepts in text, whereas the other features do not return key phrases from longer text documents.
+
+23. You have an app that sends audio recordings from a call center to the speech-to-text feature of Azure AI Services.
+
+During testing, you notice that the Word Error Rate (WER) is high and there are a lot of substitution errors.
+
+You need to improve the model and reduce the WER.
+
+What should you add to the training data?
+
+- [x] custom product and people names
+
+  - explanation: Substitution errors are due to the model needing more training on custom product names and people names.
+
+  Overlapping speakers define when there are more deletion errors.
+
+24. You are building an app that will analyze meeting recordings and identify who is speaking at which moment in time.
+
+You need to configure a voice profile for the app.
+
+Which type of voice profile should you use?
+
+- [x] Speaker identification
+
+25. You are bulding an app that will **enable users to create notes by using speech.**
+
+You need to recommend the Azure AI Speech service model to use. The solution must **support noisy environments**.
+
+Which model should you recommend?
+
+- [x] custom speech-to-text
+
+  - The custom speech-to-text model is correct, as you need to adapt the model because a factory floor might have ambient noise, which the model should be trained on.
+
+26. You plan to build **an app that will transcribe large quantities of audio files by using the Azure AI speech service batch transcription feature.**
+
+You need to recomment **a storage solution** for the audio files. The solution must minimize development effort.
+
+**What should you recommend?**
+
+- [x] Azure Storage
+
+  - explanation: Azure Storage is the only storage provider that can be used by default for batch transcription.
+
+27. You are building an app that will recognize the intent and entities of user utterances in real-time.
+
+You need to implement the pattern matching intent recognition mechanism. The solution must only detect entities that you define in a catalog of phrases.
+
+**Which entity type should you use?**
+
+- [x] the List entity using Strict Mode
+
+  - explanation: The List entity is made up of a list of phrases that will guide the engine on how to match the text. When an entity has an ID of type List and is in Strict Mode, the engine will only match if the text in the slot appears in the list.
+
+28. **You are building a custom translation model.**
+
+You need to use bilingual training documents to teach the model your terminology and style.
+
+Which rule should you follow?
+
+- [x] Be liberal.
+
+29. **You are building a custom translation model**
+
+You need to evaluate the precision of the text that you translated by using a Bilingual Evaluation Understudy (BLEU) score.
+
+Which scale is used for the score?
+
+- [x] between 0 to 100.
+
+  - explanation: A BLEU score is a number between zero to 100. A score of zero indicates a low-quality translation, where nothing in the translation matches the reference. A score of 100 indicates a perfect translation that is identical to the reference. It is unnecessary to attain a score of 100. A BLEU score between 40 to 60 indicates a high-quality translation.
+
+  ![GithubLogo](https://learn.microsoft.com/azure/cognitive-services/translator/custom-translator/beginners-guide#what-is-a-bleu-score)
+
+30. **You are building an app that uses Azure AI Services Document Translation**?
+
+You need to improve the quality of the translation for user-uploaded documents?
+
+What should you ask the users to include when they upload a document?
+
+- [x] the source language.
+
+  - explanation: If the language of the content in the source document is known, it is recommended to specify the source language in the request to get a better translation.
+
+31. **You are building an Azure AI Translator custom model**.
+
+You need to ensure that the translation accuracy for the model has a Bilingual Evaluation Understudy (BLEU) score that indicates high quality.
+
+**What is the minimum score range required?**
+
+- [x] between 40 to 59 indicates a high-quality translation.
+
+32. **You are building a model that uses Conversation Language Understanding (CLU)**
+
+You need to **measure how accurate the model is**
+
+**Which metric should you use?**
+
+- [x] precision.
+
+  - explanation: Precision measures how precise/accurate a model is. It is the ratio between the correctly identified positives (true positive) and all identified positive. The precision metric reveals how many of the predicted classes are correctly labeled.
+
+  Recall measures the model's ability to predict actual positive classes.
+
+  F1 score is a function of precision an recall.
+
+  BLEU is from the Azure AI Translator service.
+
+![Github Logo](https://learn.microsoft.com/azure/cognitive-services/language-service/conversational-language-understanding/concepts/evaluation-metrics)
+
+33. **You are building an orchestration workflow to orchestrate and connect multiple Language Understanding Models** and question answering projects for use in a bot.
+
+Which two operations can you perform in an orchestration workflow based on Azure AI Language service?
+
+- [ ] Add entities to your orchestration workflow directly.
+
+- [x] Connect to Language Understanding application that are owned by the same resource as the orchestration workflow.
+
+- [x] Connect to question answering projects that are in the same Azure AI Language service resource as your orchestration workflow.
+
+- [ ] Label a single word as two different entities
+
+  - explanation: Adding entities to your orchestration workflow is not allowed. Entities are mutually exclusive within an orchestration workflow.
+
+34. You are configuring a question answering solution
+
+You excute the API call and receive the following error:
+
+```JSON
+"synonyms": [
+        {
+            "alterations": [
+                "fix problems",
+                "troubleshoot",
+                "#diagnostic",
+                ]
+        },
+]
+```
+
+You need to ensure that the API call executes successfully.
+
+What should you do?
+
+- [x] Remove any special characters from the call.
+
+  - explanation: Special characters are not allowed for synonyms.
+    Synonyms can be added in any order, and the ordering is not considered in any computational logic. Synonyms can only be added to a project that has at least one question and answer pair.
+
+35. You plan to build a chatbot that will help users answer FAQs
+
+You need to identify which scenarios are suitable for use with the Azure AI Language question answering service.
+
+Which three scenarios should you identify?
+
+- [ ] when you have a bot conversation that includes dynamic information.
+
+- [x] when you have a bot conversation that includes static information
+
+- [ ] when you have dynamic information in a knowledge base of answers.
+
+- [x] when you have static information ina knowledge base on answers
+
+- [x] when you need to provide the same answer to a request, question, or command.
+
+- [ ] when you need to provide unique answers to each request, question, or command.
+
+36. **You are building a chatbot** that will **use the Azure AI Language question answering service**.
+
+You need to identify the operational costs for the service.
+
+Which two parameters will influence the costs?
+
+- [ ] the number of assigned metadata tags
+
+- [ ] the number of knowledge base editors
+
+- [ ] the number of supported languages
+
+- [x] the required throughput
+
+- [x] the size and the number of knowledge bases
+
+  - explanation: The throughput, the size, and the number knowledge bases affect the pricing tier, whereas the other parameters do not affect pricing.
+
+37. You are building an app that will use Azure AI Search
+
+You need to index a collection of documents.
+
+What is the first stage of the indexing process?
+
+- [x] document cracking
+
+  - explanation: **Document cracking** is the process of opening files and extracting content. It is the first stage of the indexing process.
+
+  Text-based content can be extracted from files in a service, rows in a table, or items in a container or collection. If you add a skillset and image skills, document cracking can also extract images and queue them for image processing.
+
+38. **You build an app that enables users to upload scans of invoices.**
+
+You need to **extract text and key/value pairs from the scanned invoices.**
+
+Which service should you use?
+
+- [x] Azure AI Document Intelligence
+  - explanation: The Azure AI Document Intelligence is a service that lets you build automated data processing software by using machine learning technology. It allows you to identify and extract text and key/value pairs.
+
+39. **You are building an Azure AI Language solution**.
+
+You need to deploy the solution to a location without internet connectivity.
+
+What should you do?
+
+- [x] Deploy the solution to a Docker host container.
+
+  -explanation: You can use disconnected containers to host Language Understanding on-premises.
+
+  There is no virtual machine set up to run a Language Understanding instance and a standard instance still has Language Understanding running in the cloud.
+
+40. You are building **an app that will identify the core concepts of a document** by using Azure AI Services.
+
+Which endpoint should you use as part of the solution?
+
+- [x] key phrase extraction.
+
+  - explanation: You should use the key phrase extraction endpoint.
+
+https://learn.microsoft.com/azure/cognitive-services/language-service/key-phrase-extraction/overview
+
+41. **You plan to build an app that will use Azure AI Services**.
+
+You need to identify the methods that can be used to authenticate to Azure AI Services.
+
+Which two methods can you use?
+
+- [x] a subscription key
+- [x] Microsoft Entra ID
+
+  - explanation: You can use a single or multi-service subscription keys to authenticate to Azure AI Services. You can authenticate to Azure AI Services by using a Microsoft Entra ID service principal and role-based access control (RABC).
+
+  Azure AI Services do not support authentication by using SAML tokens or Kerberos.
+
+42. **You are building an app that will use Azure AI Custom Vision. The app will be deployed to a virtual machine in Azure.**
+
+You enable firewall rules for your Azure AI Services account.
+
+You need to ensure that the app can access the service through a service endpoint.
+
+What should you do?
+
+- [x] Grant access to a specific virtual network.
+
+  - explanation: If you enable the firewall for the Azure Ai Services account, you need to allow network access to the service. You can achieve this by either allowing access from a specific virtual network or adding an IP range to the firewall rules. In this situation, the app is deployed to a virtual machine in Azure, which resides in a virtual network. You can provide access to virtual networks in Azure to access specific service endpoints.
+
+43. **You have an Azure App Services web app named App1.**
+
+You need to configure App1 to use Azure AI Services to authenticate by using Microsoft Entra ID. The solution must meet the following requirements:
+
+- Minimize administrative effort.
+- Use the principle of least privilege.
+
+What should you do?
+
+- [x] From App1, enable a managed identity and assign role-based access control (RABC) permissions to Azure AI Services.
+
+  - explanation: With a managed identity, the rotation of the secrets (certificates) is done automatically.
+
+  You still need to rotate secrets by using the key vault, and you cannot create secrets that never expire from the portal. It is not considered best practice to create one with PS1 or the CLI, and a certificate will also expire at some point.
+
+44. **You have an Azure AI Services resource.**
+
+You need to enable diagnostic logging.
+
+What are two prerequisites for diagnostic logging?
+
+- [x] a Log analytics workspace.
+- [x] an Azure Storage account.
+
+  - explanation: The prerequisites to enable diagnostic logging are to have an Azure Storage resource that retains diagnostic logs for policy audit, static analysis, or backup. A Log Analytics resource provides a flexible log search and analytics tool that allows for analysis of raw logs generated by an Azure resource.
+
+  https://learn.microsoft.com/azure/cognitive-services/diagnostic-logging
+
+45. You are developing a containerized optical character recognition (OCR)-capable application by using Azure AI Services containers.
+
+While developing the solution, you retrieve a status message of "Mismatch", and the connection to the AI Services resource fails.
+
+You need to ensure that the solution can connect to the AI Services resource.
+
+What should you do?
+
+- [x] Confirm that the API Kei is for the correct resource type.
+
+  - explanation: Mismatch means that the wrong API key has been used. If you have provided an API key or endpoint for a different kind of Azuure AI Services resource, you find your API key and service region in the Azure portal, in the Keys and Endpoint serctin for you Azure AI Services resource.
+
+  If the API key is invalid, you must confirm that the API key is for the correct region. If the API key has exceeded the quota, then you can either upgrade your pricing tier or wat for an additional quota to become available. Find your tier in the Azure portal, in the Pricing Tier section of you Azure AI Service resource. The mismatch error would not be generated if the resource was offline.
+
+https://learn.microsoft.com/azure/cognitive-services/containers/container-faq
+
+46. **You are building a knowledge mining solution by using Azure AI Search**.
+
+You need to ensure that the solution supports wildcard queries in search requests.
+
+What should you include in the REST API request?
+
+- [x] "queryType": "full"
+
+https://learn.microsoft.com/azure/search/search-lucene-query-architecture
+
+47. **You are building a knowledge mining solution** that use Azure AI Search.
+
+You need to extract content from a file within the enrichment pipeline using AI enrichment.
+
+Which built-in skill should you use?
+
+- [x] Microsoft.Skills.Util.DocumentExtractionSkill
+
+https://learn.microsoft.com/azure/search/cognitive-search-predefined-skills
+
+48. **You are building an app the extract data from legal documents**.
+
+You plan to use the Azure AI Document Intelligence prebuilt-read model.
+
+Which three **documents formats** does the prebuilt-read model support?
+
+- [x] MicrosoftExcel
+- [x] Microsoft Word
+- [x] PDF
+
+https://learn.microsoft.com/azure/applied-ai-services/form-recognizer/concept-read?view=form-recog-3.0.0
+
+49.You have an app named App1 that analyzes social media mentions and determines whether comments are positive or negative.
+
+During testing, you notice that App1 generates negative sentiment analysis in response to customer feedback that contains positive feedback.
+
+You need to ensure that App1 includes more granular information during the analysis.
+
+What should you add to the API requests?
+
+- [x] opinionMining=true
+
+https://learn.microsoft.com/rest/api/language/text-analysis-runtime/analyze-text?view=rest-language-2023-04-01&tabs=HTTP
+
+49. \*\*You are building a model that uses Conversational Language Understanding (CLU).
+
+You need to train the model.
+
+Which training methods can you use?
+
+- [x] standard and advanced only .
+
+https://learn.microsoft.com/azure/cognitive-services/luis/how-to/train-test#change-deterministic-training-settings-using-the-version-settings-api
+
+50. **You are creating an orchestration workflow for Language Understanding**
+
+You need to configure workflows for multiple languages. The solution must minimize administrative effort.
+
+What should you create for each language?
+
+- [x] separate workflow projects.
+
+  https://learn.microsoft.com/azure/cognitive-services/language-service/orchestration-workflow/language-support
+
+51. **You are building a multilingual conversational app by using Converstational Language Understanding (CLU)**, part of Azure AI Language service.
+
+You create a CLU model that will serve multiple languages.
+
+You need to optimize the performance of the model. The solution must minimize development effort.
+
+What should you do?
+
+- [x] Add utterances for languages that performing poorly in the model.
+
+https://learn.microsoft.com/azure/cognitive-services/language-service/conversational-language-understanding/concepts/multiple-languages
+
+52. \*\*You are building an app that will use Azure AI Vision to detect the presence of people in a video feed.
+
+Which Azure AI Vision feature should you use?
+
+- [x] spatial Analysis.
+
+https://learn.microsoft.com/azure/cognitive-services/computer-vision/overview
+
+53. You have an app named App1 that **extracts invoice data from PDF files** by using S0 instance of Azure AI Document Intelligence.
+    The PDF files are up to 2mb each and contain up to 10 pages.
+
+User report that App1 is unable to process some invoices.
+
+You need to troubleshoot the issue.
+
+What is a possible cause of the issue?
+
+- [x] Some of the files are password protected.
+
+https://learn.microsoft.com/azure/applied-ai-services/form-recognizer/concept-invoice?view=form-recog-3.0.0
+
+54. **You are building an app that will use the Azure AI Custom Vision API to detect when all the spaces in a parking lot are empty.**
+
+Which feature of the API should you use?
+
+- [x] object detection
+
+https://learn.microsoft.com/azure/cognitive-services/custom-vision-service/overview
+
+55. **You need to build an app that will use Azure AI Vision to analyze and detect animals in images**.
+
+Which type of project should you use?
+
+- [x] object detection
+
+https://learn.microsoft.com/azure/cognitive-services/custom-vision-service/overview
+
+56. **You are building an app that uses Azure AI Video Indexer.**
+
+You need to extract keyframes from uploaded video and store them on a disk by using the API.
+
+How should you implement the solution?
+
+- [x] Upload the video, get the video index, and get the thumbnail for each keyframe.
+
+https://learn.microsoft.com/azure/azure-video-indexer/scenes-shots-keyframes
+
+57. **You are building a video processing app that will use Azure AI Video Indexer to extract** insights from videos that contain multi-language content.
+
+You need to configure the API calls to enable multilingual identification.
+
+Which value should you set for the sourceLanguage parameter?
+
+- [x] multi-language detection
+
+https://learn.microsoft.com/azure/azure-video-indexer/multi-language-identification-transcription
+
+58. **You are creating an assistant based** on a generative Azure AI model.
+
+You plan to use the system message component for prompts in the solution.
+
+Which two capabilities does the system message offer for the model?
+
+- [x] defines what the model should and should not do.
+
+- [x] helps define the assistant's personality.
+
+https://learn.microsoft.com/azure/ai-services/openai/concepts/advanced-prompt-engineering?pivots=programming-language-chat-completions
+
+59. **You are building a web app that will generate images based on user prompts.** The app will use the DALL-3 Azure OpenAI model.
+
+You need to ensure that HTTP requests against the Azure OpenAI API successfully generate images.
+
+Which three HTTP header properties should you include?
+
+- [x] the API version used in this operation.
+
+- [x] the name of the Azure OpenAI service resource.
+
+- [x] the name of the DALL-3 model deployment.
+
+https://learn.microsoft.com/azure/ai-services/openai/reference
